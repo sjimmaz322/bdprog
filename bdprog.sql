@@ -18,6 +18,7 @@ values
 (2,'Alberto', 'basket123', 'alberto@gmail.com',29),
 (3,'Anne', 'garouc3n3t', 'anne@gmail.com',27);
 
+
 CREATE TABLE IF NOT EXISTS jugador (
 	codjugador int unsigned not null auto_increment,
     apodo VARCHAR(20) UNIQUE,
@@ -41,6 +42,7 @@ values
 CREATE TABLE IF NOT EXISTS partida (
 	codpartida int unsigned not null auto_increment,
     titulo VARCHAR(20),
+    sistema varchar(25),
     numsesiones TINYINT UNSIGNED,
     trasfondo VARCHAR(500),
     codjugador int unsigned,
@@ -51,11 +53,11 @@ CREATE TABLE IF NOT EXISTS partida (
 );
 
 insert into partida
-(codpartida, titulo, numsesiones, trasfondo, codjugador)
+(codpartida, titulo, sistema, numsesiones, trasfondo, codjugador)
 values
-(1, 'La dama', 3, 'Una extraña carta llega a manos de los aventureros, una misteriosa mujer los reclama',1),
-(2, 'Truhan', 1, 'La fuente del pueblo se ha secado, un extraño personaje pide oro a cambio de recuperar el agua',2),
-(3, 'Lyserods, como no', 9, 'En la taberna se oye demasiado escándalo, se dice que una extraña familia está celebrando algo',3);
+(1, 'La dama','Rápido y Fácil', 3, 'Una extraña carta llega a manos de los aventureros, una misteriosa mujer los reclama',1),
+(2, 'Truhan','D&D 5e',1,'La fuente del pueblo se ha secado, un extraño personaje pide oro a cambio de recuperar el agua',2),
+(3, 'Lyserods, como no','Anima Beyond Fantasy',9, 'En la taberna se oye demasiado escándalo, se dice que una extraña familia está celebrando algo',3);
 
 -- select * from usuario;
 -- select * from jugador;

@@ -20,9 +20,8 @@ public class Partida implements Serializable {
 	private int codpartida;
 
 	private int codjugador;
-
-	@Temporal(TemporalType.DATE)
-	private Date fechainicio;
+	
+	private String sistema;
 
 	private int numsesiones;
 
@@ -52,14 +51,6 @@ public class Partida implements Serializable {
 
 	public void setCodjugador(int codjugador) {
 		this.codjugador = codjugador;
-	}
-
-	public Date getFechainicio() {
-		return this.fechainicio;
-	}
-
-	public void setFechainicio(Date fechainicio) {
-		this.fechainicio = fechainicio;
 	}
 
 	public int getNumsesiones() {
@@ -93,5 +84,33 @@ public class Partida implements Serializable {
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
 	}
+	
+
+	public String getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(String sistema) {
+		this.sistema = sistema;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Partida [codpartida=");
+		builder.append(codpartida);
+		builder.append(", codjugador=");
+		builder.append(codjugador);
+		builder.append(", numsesiones=");
+		builder.append(numsesiones);
+		builder.append(", titulo=");
+		builder.append(titulo);
+		builder.append(", trasfondo=");
+		builder.append(trasfondo);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	
 
 }
