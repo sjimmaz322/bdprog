@@ -139,7 +139,7 @@ public class Programa {
 				opcion = comprobarOpcion(0, 2);
 				switch(opcion) {
 					case 1:
-						//consultarUsuarios();
+						consultarUsuarios();
 						break;
 					case 2:
 						//imprimirUsuario();
