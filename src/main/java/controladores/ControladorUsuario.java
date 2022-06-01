@@ -25,9 +25,9 @@ public class ControladorUsuario {
 			aux = this.em.merge(u);
 		}
 		// Ahora se puede borrar usando aux, porque es una entidad gestionada por la
-		// caché
+		// cachï¿½
 		this.em.remove(aux);
-		// Se vuelca la información del contexto (caché intermedia) en la base de datos
+		// Se vuelca la informaciï¿½n del contexto (cachï¿½ intermedia) en la base de datos
 		this.em.getTransaction().commit();
 		// Cierra el entityManager
 		this.em.close();
@@ -35,11 +35,11 @@ public class ControladorUsuario {
 	
 	public void modifyUsuario(Usuario u) {
 		this.em = entityManagerFactory.createEntityManager();
-		// En este caso es necesario iniciar una transacción en la base de datos
-		// porque vamos a persistir información en la misma
+		// En este caso es necesario iniciar una transacciï¿½n en la base de datos
+		// porque vamos a persistir informaciï¿½n en la misma
 		this.em.getTransaction().begin();
 		// merge(Objeto) - Si una entidad con el mismo identificador que v existe en el
-		// contexto de persistencia (caché), se actualizan sus atributos y se devuelve
+		// contexto de persistencia (cachï¿½), se actualizan sus atributos y se devuelve
 		// como entidad gestionada
 		// Si el objeto v no existe en la base de datos, se comporta como persist() y la
 		// entidad gestionada es la devuelta por merge(), por lo que v es una entidad desconectada
@@ -51,13 +51,13 @@ public class ControladorUsuario {
 	
 	public void createUsuario(Usuario u) {
 		this.em = entityManagerFactory.createEntityManager();
-		// En este caso es necesario iniciar una transacción en la base de datos
-		// porque vamos a persistir información en la misma
+		// En este caso es necesario iniciar una transacciï¿½n en la base de datos
+		// porque vamos a persistir informaciï¿½n en la misma
 		this.em.getTransaction().begin();
-		// Se guarda el objeto en el contexto de persistencia (caché intermedia)
+		// Se guarda el objeto en el contexto de persistencia (cachï¿½ intermedia)
 		// u es una entidad conectada
 		this.em.persist(u);
-		// Se vuelca la información del contexto (caché intermedia) en la base de datos
+		// Se vuelca la informaciï¿½n del contexto (cachï¿½ intermedia) en la base de datos
 		this.em.getTransaction().commit();
 		// Cierra el entityManager
 		this.em.close();
