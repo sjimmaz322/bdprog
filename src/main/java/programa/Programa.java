@@ -1,6 +1,8 @@
 package programa;
 
+import java.time.LocalDate;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import controladores.ControladorJugador;
@@ -11,6 +13,7 @@ import entidades.Jugador;
 import entidades.Partida;
 
 public class Programa {
+	
 	private static ControladorUsuario cu = new ControladorUsuario();
 	private static ControladorJugador cj = new ControladorJugador();
 	private static ControladorPartida cp = new ControladorPartida();
@@ -72,15 +75,15 @@ public class Programa {
 			
 			switch(opcion) {
 			case 1:
-				modificarUsuario();
+				//modificarUsuario();
 				salir = continuarOperando();
 				break;
 			case 2:
-				modificarJugador();
+				//modificarJugador();
 				salir = continuarOperando();
 				break;
 			case 3:	
-				modificarPartida();
+				//modificarPartida();
 				salir = continuarOperando();
 				break;
 			case 4:
@@ -101,15 +104,15 @@ public class Programa {
 			
 			switch(opcion) {
 			case 1:
-				
+				//borradorUsuario();
 				salir = continuarOperando();
 				break;
 			case 2:
-				
+				//borradorJugador();
 				salir = continuarOperando();
 				break;
 			case 3:		
-				
+				//borradorPartida();
 				salir = continuarOperando();
 				break;
 			case 4:
@@ -129,15 +132,57 @@ public class Programa {
 			
 			switch(opcion) {
 			case 1:
-				
+				System.out.println("Introduza la opción que desee\n"
+						+ "1 - Consultar todos los usuarios\n"
+						+ "2 - Consultar un usuario concreto\n"
+						+ "0 - Cancelar");
+				opcion = comprobarOpcion(0, 2);
+				switch(opcion) {
+					case 1:
+						//consultarUsuarios();
+						break;
+					case 2:
+						//imprimirUsuario();
+						break;
+					case 0:
+						break;
+				}
 				salir = continuarOperando();
 				break;
 			case 2:
-				
+				System.out.println("Introduza la opción que desee\n"
+						+ "1 - Consultar todos los jugadores\n"
+						+ "2 - Consultar un jugador concreto\n"
+						+ "0 - Cancelar");
+				opcion = comprobarOpcion(0, 2);
+				switch(opcion) {
+					case 1:
+						//consultarJugadores();
+						break;
+					case 2:
+						//imprimirJugador();
+						break;
+					case 0:
+						break;
+				}
 				salir = continuarOperando();
 				break;
 			case 3:
-				
+				System.out.println("Introduza la opción que desee\n"
+						+ "1 - Consultar todas las partidas\n"
+						+ "2 - Consultar una partida concreta\n"
+						+ "0 - Cancelar");
+				opcion = comprobarOpcion(0, 2);
+				switch(opcion) {
+					case 1:
+						//consultarPartidas();
+						break;
+					case 2:
+						//imprimirPartida();
+						break;
+					case 0:
+						break;
+				}
 				salir = continuarOperando();
 				break;
 			case 4:
@@ -190,7 +235,8 @@ public class Programa {
 		Scanner sc = new Scanner(System.in);
 		Usuario u = new Usuario();
 		String nombre, contrasenia, email;
-		int edad;
+		int edad = 0;
+		boolean repetir = true;
 		
 		System.out.println("Introduza el nombre");
 		nombre = sc.nextLine();
@@ -201,17 +247,28 @@ public class Programa {
 		System.out.println("Introduza el correo sin dominio");
 		email = sc.nextLine();
 		u.setEmail(email+"@gmail.com");
+		do {
 		System.out.println("Introduza la edad del usuario");
+		try {
 		edad = sc.nextInt();
+		if (edad >= 13) {
+			repetir = false;
+		}else {
+			System.out.println("La edad es inferior a la mínima permitida (13)");
+		}
+		}catch (InputMismatchException ime) {
+			System.out.println("Introduzca un número");
+		}
+		}while (repetir);
 		u.setEdad(edad);
 		return u;
 	}
-	
 	public static Jugador crearJugador() {
 		Scanner sc = new Scanner(System.in);
 		Jugador j = new Jugador();
 		String apodo, sistema;
-		int anio, nPartidas;
+		int anio = 0, nPartidas = 0;
+		boolean repetir = true;
 		
 		System.out.println("Introduza el apodo");
 		apodo = sc.nextLine();
@@ -220,10 +277,36 @@ public class Programa {
 		sistema = sc.nextLine();
 		j.setSistemapreferido(sistema);
 		System.out.println("Introduza el año del inicio en el rol");
-		anio = sc.nextInt();
+
+		do {
+			System.out.println("Introduza la edad del usuario");
+			try {
+			anio = sc.nextInt();
+			if (anio >= LocalDate.now().getYear()) {
+				repetir = false;
+			}else {
+				System.out.println("No se admiten viajeros temporales");
+			}
+			}catch (InputMismatchException ime) {
+				System.out.println("Introduzca un número");
+			}
+			}while (repetir);
 		j.setIniciorol(anio);
 		System.out.println("Introduza el número de partidas en las que ha participado");
-		nPartidas = sc.nextInt();
+		
+		do {
+			System.out.println("Introduza la edad del usuario");
+			try {
+			nPartidas = sc.nextInt();
+			if (nPartidas >= 0) {
+				repetir = false;
+			}else {
+				System.out.println("Mínimo nunca has jugado al rol");
+			}
+			}catch (InputMismatchException ime) {
+				System.out.println("Introduzca un número");
+			}
+			}while (repetir);
 		j.setNumpartidas(nPartidas);
 		return j;
 	}
@@ -232,7 +315,8 @@ public class Programa {
 		Scanner sc = new Scanner(System.in);
 		Partida p = new Partida();
 		String titulo, trasfondo, sistema;
-		int nSesiones;
+		int nSesiones = 1;
+		boolean repetir = true;
 		
 		System.out.println("Introduza el titulo de la partida");
 		titulo = sc.nextLine();
@@ -244,8 +328,22 @@ public class Programa {
 		sistema = sc.nextLine();
 		p.setTitulo(sistema);
 		System.out.println("Introduza el número de sesiones de la partida");
-		nSesiones = sc.nextInt();
+		
+		do {
+			System.out.println("Introduza la edad del usuario");
+			try {
+			nSesiones = sc.nextInt();
+			if (nSesiones >= 1) {
+				repetir = false;
+			}else {
+				System.out.println("La duración mínima de una partida es de una sesión (One Shot)");
+			}
+			}catch (InputMismatchException ime) {
+				System.out.println("Introduzca un número");
+			}
+			}while (repetir);
 		p.setNumsesiones(nSesiones);
+		
 		return p;
 	}
 
@@ -402,6 +500,125 @@ public class Programa {
 		cp.modifyPartida(p2);
 	}
 
+	
+	public static void borradorUsuario() {
+		
+		Scanner sc = new Scanner(System.in);
+		int cod;	
+		
+		System.out.println("Introduzca el código del usuario a borrar");
+		cod = sc.nextInt();
+		
+		Usuario u2 = cu.findBycodigo(cod);
+		cu.borrarUsuario(u2);
+	}
+	public static void borradorJugador() {
+		Scanner sc = new Scanner(System.in);
+		int cod;	
+		
+		System.out.println("Introduzca el código del jugador a borrar");
+		cod = sc.nextInt();
+		
+		Jugador j2 = cj.findBycodigo(cod);
+		cj.borrarJugador(j2);
+	}
+	public static void borradorPartida() {
+		Scanner sc = new Scanner(System.in);
+		int cod;	
+		
+		System.out.println("Introduzca el código del jugador a borrar");
+		cod = sc.nextInt();
+		
+		Partida p2 = cp.findBycodigo(cod);
+		cp.borrarPartida(p2);
+	}
+
+
+	public static void imprimirUsuario() {
+		Scanner sc = new Scanner(System.in);
+		int cod = 0;	
+		boolean repetir = true;
+		System.out.println("Introduzca el código del usuario buscado");
+		
+		do {
+			try {
+				cod = sc.nextInt();
+				repetir = false;
+			}catch (InputMismatchException ime) {
+				System.out.println("Introduzca un número");
+			}
+			}while (repetir);
+		
+		Usuario u = cu.findBycodigo(cod);
+		
+		System.out.println(u.toString());
+	}
+	public static void imprimirJugador() {
+		Scanner sc = new Scanner(System.in);
+		int cod = 0;	
+		boolean repetir = true;
+		System.out.println("Introduzca el código del jugador buscado");
+		
+		do {
+			try {
+				cod = sc.nextInt();
+				repetir = false;
+			}catch (InputMismatchException ime) {
+				System.out.println("Introduzca un número");
+			}
+			}while (repetir);
+		
+		Jugador j = cj.findBycodigo(cod);
+		
+		System.out.println(j.toString());
+	}
+	public static void imprimirPartida() {
+		Scanner sc = new Scanner(System.in);
+		int cod = 0;	
+		boolean repetir = true;
+		System.out.println("Introduzca el código del usuario buscado");
+		
+		do {
+			try {
+				cod = sc.nextInt();
+				repetir = false;
+			}catch (InputMismatchException ime) {
+				System.out.println("Introduzca un número");
+			}
+			}while (repetir);
+		
+		Partida p = cp.findBycodigo(cod);
+		
+		System.out.println(p.toString());
+	}
+	
+	
+	public static void consultarUsuarios() {
+		List<Usuario> lista = cu.findAll();
+		
+		System.out.println("----- Imprimiendo Usuarios -----");
+		for (Usuario u : lista) {
+			System.out.println(u);
+		}
+	}
+	public static void consultarJugadores() {
+		List<Jugador> lista = cj.findAll();
+		
+		System.out.println("----- Imprimiendo Jugadores -----");
+		for (Jugador j : lista) {
+			System.out.println(j);
+		}
+	}
+	public static void consultarPartidas() {
+		List<Partida> lista = cp.findAll();
+		
+		System.out.println("----- Imprimiendo Jugadores -----");
+		for (Partida p : lista) {
+			System.out.println(p);
+		}
+	}
+	
+	
 	public static void menu(String var) {
 		System.out.println("\nEligió "+ var.toUpperCase()+"\n"
 				+ "Por favor seleccione que desea "+ var.toUpperCase() +"\n"
